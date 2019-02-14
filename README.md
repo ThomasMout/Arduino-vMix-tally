@@ -51,6 +51,6 @@ In this state the tally is connected to WiFi and vMix. It detects new tally stat
 Network and tally settings can be edited on the built-in webpage. To access the webpage connect to the same WiFi network and navigate to the IP address or the devicename(*vmix_tally_#.home*, # is the tally number) in a browser.  
 On this webpage the WiFi SSID, WiFi password, vMix hostname and tally number can be changed. It also shows some basic information of the device.
 
-## Footnoot
+## Footnote
 Please note all images are for illustration purpose. Actual results may vary.  
 Feel free open issues on this repository for bugs or feature requests.
