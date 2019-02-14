@@ -1,0 +1,27 @@
+#######################################
+# Syntax Coloring Map For Motor
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+MLED	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+display	KEYWORD2
+clear	KEYWORD2
+dot	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+disBuffer	LITERAL1
+intensity	LITERAL1
+
+
+
