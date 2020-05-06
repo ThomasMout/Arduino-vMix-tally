@@ -81,6 +81,7 @@ On this webpage the WiFi SSID, WiFi password, vMix hostname and tally number can
 1. Make sure to use a power cable that does not support data when using a USB port on a camera. This can cause connecting issues in the camera.  
 2. The Arduino is completely dependent on a good WiFi signal.  
 3. The tally must be connected to the same network as the vMix instance.  
+4. The LED matrix can only display in red. The difference in color in the pictures above is due to a difference in LED intensity. 
 
 ## Footnote
 
