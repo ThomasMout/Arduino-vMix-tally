@@ -203,7 +203,7 @@ void ledSetOff()
 void ledSetProgram()
 {
   matrix.clear();
-  matrix.drawBitmap(0, 0, FULL, 8, 8, LED_ON);
+  matrix.drawBitmap(0, 0, L, 8, 8, LED_ON);
   ledSetIntensity(7);
   matrix.writeDisplay();
 }
@@ -212,7 +212,7 @@ void ledSetProgram()
 void ledSetPreview()
 {
   matrix.clear();
-  matrix.drawBitmap(0, 0, DOTS, 8, 8, LED_ON);
+  matrix.drawBitmap(0, 0, P, 8, 8, LED_ON);
   ledSetIntensity(2);
   matrix.writeDisplay();
 }
