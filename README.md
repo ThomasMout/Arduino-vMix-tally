@@ -57,7 +57,7 @@ In this state the tally is trying to connect to WiFi and vMix based on the setti
 
 | Symbol | Meaning      | Led intensity | Example                                               |
 |--------|--------------|---------------|-------------------------------------------------------|
-| S      | Settings     | 100%          |<img src="/Pictures/AP%20mode.jpg" alt="S" width="50"> |
+| SETUP  | Settings     | 100%          |<img src="/Pictures/AP%20mode.jpg" alt="S" width="50"> |
 
 In this state the tally was unable to connect to WiFi and it turned itself to access point mode. It can be accessed by connecting to the WiFi network with the SSID *vMix_Tally_#* (# is the tally number) and password *vMix_Tally_#_access* (# is the tally number). Once connected the settings can be changed by going to the webpage on IP address 192.168.4.1.  
 
@@ -67,14 +67,16 @@ In this state the tally was unable to connect to WiFi and it turned itself to ac
 |--------|--------------|---------------|------------------------------------------------------------|
 | P      | Preview      | 28.5%         |<img src="/Pictures/Tally%20preview.jpg" alt="P" width="50">|
 | L      | Live/program | 100%          |<img src="/Pictures/Tally%20live.jpg" alt="L" width="50">   |
-| *None* | Off          | na            |<img src="/Pictures/Tally%20off.jpg" alt="Off" width="50">  |
+| R      | Recording    | 100%          |<img src="/Pictures/Tally%20preview.jpg" alt="P" width="50">|
+| S      | Streaming    | 100%          |                                                            |
+| *None* | Off          | na            |                                                            |
 
 In this state the tally is connected to WiFi and vMix. It detects new tally states and shows them using the led matrix.  
 
 ### Settings
 
 Network and tally settings can be edited on the built-in webpage. To access the webpage connect to the same WiFi network and navigate to the IP address or the devicename(*vmix_tally_#.home*, # is the tally number) in a browser.  
-On this webpage the WiFi SSID, WiFi password, vMix hostname and tally number can be changed. It also shows some basic information of the device.  
+On this webpage the WiFi SSID, WiFi password, vMix hostname, tally mode and tally number can be changed. It also shows some basic information of the device.  
 
 ## Things to keep in mind
 
