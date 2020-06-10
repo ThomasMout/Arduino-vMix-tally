@@ -25,7 +25,8 @@ struct Settings
   char pass[PassMaxLength];
   char hostName[HostNameMaxLength];
   int tallyNumber;
-  int tallyType; //1=Tally, 2=Recording 3=Streaming
+  int tallyType;    //1=Tally, 2=Recording 3=Streaming
+  int tallyGlyph;   //1=Glyphs, 2=All on/All Off
 };
 
 // Default settings object
@@ -34,7 +35,8 @@ Settings defaultSettings = {
   "pass default",
   "hostname default",
   1,
-  0
+  1,
+  1
 };
 
 Settings settings;
@@ -109,6 +111,9 @@ void loadSettings()
   ptr++;
 
   settings.tallyType = EEPROM.read(ptr);
+  ptr++;
+
+  settings.tallyGlyph = EEPROM.read(ptr);
 
   if (strlen(settings.ssid) == 0 || strlen(settings.pass) == 0 || strlen(settings.hostName) == 0 || settings.tallyNumber == 0 || settings.tallyType == 0)
   {
@@ -161,7 +166,9 @@ void saveSettings()
   ptr++;
 
   EEPROM.write(ptr, settings.tallyType);
+  ptr++;
 
+  EEPROM.write(ptr, settings.tallyGlyph);
 
   EEPROM.commit();
 
@@ -184,6 +191,8 @@ void printSettings()
   Serial.println(settings.tallyNumber);
   Serial.print("Tally Type: ");
   Serial.println(settings.tallyType);
+  Serial.print("Tally Glyphs: ");
+  Serial.println(settings.tallyGlyph);
 }
 
 // Set led intensity from 0 to 7
@@ -203,7 +212,14 @@ void ledSetOff()
 void ledSetProgram()
 {
   matrix.clear();
-  matrix.drawBitmap(0, 0, L, 8, 8, LED_ON);
+  if(settings.tallyGlyph==2)
+  {
+    matrix.drawBitmap(0, 0, FULL, 8, 8, LED_ON);
+  }
+  else
+  {
+    matrix.drawBitmap(0, 0, L, 8, 8, LED_ON);
+  }
   ledSetIntensity(7);
   matrix.writeDisplay();
 }
@@ -212,8 +228,16 @@ void ledSetProgram()
 void ledSetPreview()
 {
   matrix.clear();
-  matrix.drawBitmap(0, 0, P, 8, 8, LED_ON);
-  ledSetIntensity(2);
+  if(settings.tallyGlyph==2)
+  {
+    matrix.drawBitmap(0, 0, DOTS, 8, 8, LED_ON);
+    ledSetIntensity(1);
+  }
+  else
+  {
+    matrix.drawBitmap(0, 0, P, 8, 8, LED_ON);
+    ledSetIntensity(2);
+  }
   matrix.writeDisplay();
 }
 
@@ -230,7 +254,14 @@ void ledSetConnecting()
 void ledSetRecording()
 {
   matrix.clear();
-  matrix.drawBitmap(0, 0, R, 8, 8, LED_ON);
+  if(settings.tallyGlyph==2)
+  {
+    matrix.drawBitmap(0, 0, FULL, 8, 8, LED_ON);
+  }
+  else
+  {
+    matrix.drawBitmap(0, 0, R, 8, 8, LED_ON);
+  }
   ledSetIntensity(7);
   matrix.writeDisplay();
 }
@@ -239,7 +270,14 @@ void ledSetRecording()
 void ledSetStreaming()
 {
   matrix.clear();
-  matrix.drawBitmap(0, 0, S, 8, 8, LED_ON);
+  if(settings.tallyGlyph==2)
+  {
+    matrix.drawBitmap(0, 0, FULL, 8, 8, LED_ON);
+  }
+  else
+  {
+    matrix.drawBitmap(0, 0, S, 8, 8, LED_ON);
+  }
   ledSetIntensity(7);
   matrix.writeDisplay();
 }
@@ -249,7 +287,7 @@ void ledSetSettings()
 {
   matrix.clear();
   matrix.drawBitmap(0, 0, SETUP, 8, 8, LED_ON);
-  ledSetIntensity(7);
+  ledSetIntensity(3);
   matrix.writeDisplay();
 }
 
@@ -485,6 +523,23 @@ void rootPageHandler()
   response_message += "</div></div>";
 
   response_message += "<div class='form-group row'>";
+  response_message += "<label for='tallyGlyph' class='col-sm-4 col-form-label'>Tally Glyph</label>";
+  response_message += "<div class='col-sm-8'>";
+  response_message += "<select id='tallyGlyph' class='form-control' type='list' list='tallyGlyph' name='tallyGlyph'>";
+  if(settings.tallyGlyph==2)
+  {
+    response_message += "<option value='1'>Glyphs</option>";
+    response_message += "<option value='2' selected>All Leds</option>";
+  }
+  else
+  {
+    response_message += "<option value='1' selected>Glyphs</option>";
+    response_message += "<option value='2'>All Leds</option>";
+  }
+  response_message += "</select>";
+  response_message += "</div></div>";
+
+  response_message += "<div class='form-group row'>";
   response_message += "<label for='inputnumber' class='col-sm-4 col-form-label'>Input number (1-1000)</label>";
   response_message += "<div class='col-sm-8'>";
   response_message += "<input id='inputnumber' class='form-control' type='number' size='64' min='0' max='1000' name='inputnumber' value='" + String(settings.tallyNumber) + "'>";
@@ -596,6 +651,15 @@ void handleSave()
     if (httpServer.arg("tallyType").toInt() >= 0 and httpServer.arg("tallyType").toInt() <= 3)
     {
       settings.tallyType = httpServer.arg("tallyType").toInt();
+      doRestart = true;
+    }
+  }
+
+    if (httpServer.hasArg("tallyGlyph"))
+  {
+    if (httpServer.arg("tallyGlyph").toInt() > 0 and httpServer.arg("tallyGlyph").toInt() < 3)
+    {
+      settings.tallyGlyph = httpServer.arg("tallyGlyph").toInt();
       doRestart = true;
     }
   }
