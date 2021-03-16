@@ -67,7 +67,7 @@ In this state the tally was unable to connect to WiFi and it turned itself to ac
 |--------|--------------|---------------|------------------------------------------------------------|
 | P      | Preview      | 28.5%         |<img src="/Pictures/Tally%20preview.jpg" alt="P" width="50">|
 | L      | Live/program | 100%          |<img src="/Pictures/Tally%20live.jpg" alt="L" width="50">   |
-| *None* | Off          | na            |<img src="/Pictures/Tally%20off.jpg" alt="Off" width="50">  |
+| .      | Off          | 28.5%         |<img src="/Pictures/Tally%20off.jpg" alt="Off" width="50">  |
 
 In this state the tally is connected to WiFi and vMix. It detects new tally states and shows them using the led matrix.  
 
