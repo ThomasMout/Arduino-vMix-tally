@@ -1,6 +1,7 @@
+
 /*
   vMix wireless tally
-  Copyright 2019 Thomas Mout
+  Copyright 2021 Thomas Mout
 */
 
 #include <EEPROM.h>
@@ -60,6 +61,7 @@ static const uint8_t PROGMEM C[] = {B00000000, B01111110, B11111111, B10000001, 
 static const uint8_t PROGMEM L[] = {B00000000, B11111111, B11111111, B11000000, B11000000, B11000000, B11000000, B00000000};
 static const uint8_t PROGMEM P[] = {B00000000, B11111111, B11111111, B00010001, B00010001, B00011111, B00001110, B00000000};
 static const uint8_t PROGMEM S[] = {B00000000, B01001100, B11011110, B10010010, B10010010, B11110110, B01100100, B00000000};
+static const uint8_t PROGMEM CORNER_DOTS[] = {B10000001, B00000000, B00000000, B00000000, B00000000, B00000000, B00000000, B10000001};
 
 // The WiFi client
 WiFiClient client;
@@ -181,6 +183,15 @@ void ledSetOff()
   matrix.writeDisplay();
 }
 
+// Draw corner dots
+void ledSetCornerDots()
+{
+  matrix.clear();
+  matrix.drawBitmap(0, 0, CORNER_DOTS, 8, 8, LED_ON);
+  ledSetIntensity(2);
+  matrix.writeDisplay();
+}
+
 // Draw L(ive) with LED's
 void ledSetProgram()
 {
@@ -223,6 +234,7 @@ void tallySetOff()
   Serial.println("Tally off");
 
   ledSetOff();
+  ledSetCornerDots();
 }
 
 // Set tally to program
